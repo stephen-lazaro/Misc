@@ -1,0 +1,6 @@
+#!/usr/bin/env perl
+print("Give me a first number.\n");
+$first = <STDIN>;
+print("Give me a second.\n");
+$second = <STDIN>;
+print($first * $second . "\n"

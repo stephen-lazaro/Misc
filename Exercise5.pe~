@@ -1,0 +1,10 @@
+#!/usr/bin/env perl
+print("Give me a radius.\n");
+$radius = <STDIN>;
+$pi = 3.141592654;
+if $radius<0 {
+   print(0);
+}
+else {
+   print(2*$radius*$pi);
+}
