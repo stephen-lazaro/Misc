@@ -1,0 +1,7 @@
+#!/usr/bin/env perl
+@stringslist = <STDIN>;
+chomp @stringslist;
+@stringslist = reverse @stringslist;
+foreach $string (@stringslist) {
+  print("$string \n");
+}
