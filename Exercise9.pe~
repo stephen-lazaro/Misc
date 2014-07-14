@@ -1,0 +1,7 @@
+#!/usr/bin/env perl
+print("Give me a list of numbers! (Seperate Lines Please)\n");
+@numbers = <STDIN>;
+@names = qw( fred bette barney dino wilma pebbles bamm-bamm);
+foreach $number (@numbers){
+  print($names[$number]);
+}
