@@ -1,0 +1,3 @@
+sub total(list): {
+    return shift(list) + total(list);
+}
