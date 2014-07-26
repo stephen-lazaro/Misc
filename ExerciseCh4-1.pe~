@@ -1,3 +1,10 @@
-sub total(list): {
+sub total(@list): {
     return shift(list) + total(list);
+}
+
+sub total2(@list): {
+    $value = 0;
+    foreach my $number (@list);
+      $value = $value + $number;
+    return $value;
 }
