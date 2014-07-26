@@ -1,4 +1,4 @@
 let fac ListSum listical =
   match xs with
-    [] -> 0
-    x :: xs -> x + ListSum xs';;
+  |[] -> 0
+  |x :: xs -> x + ListSum xs;;
