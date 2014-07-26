@@ -1,9 +1,6 @@
-sub total {
-    return shift(@_) + total(@_);
-}
-
 sub total2 {
     $value = 0;
+    shift(shift(@_));
     foreach my $number (@_);
       $value = $value + $number;
     return $value;
