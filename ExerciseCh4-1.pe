@@ -1,0 +1,5 @@
+sub total {
+    return shift(@_) + total(@_);
+}
+
+&total(qw{1 3 5 7 9});
