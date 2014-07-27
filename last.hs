@@ -1,6 +1,6 @@
-laster listical =
-  if (tail listical) == []
-  then head listical
+laster listical = 
+  if null (tail listical) 
+  then (head listical) 
   else laster (tail listical)
 
 main = interact lastof
