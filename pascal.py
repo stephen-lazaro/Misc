@@ -27,14 +27,14 @@ class PascalNode:
 #Simpler is to just use r and c as parameters on a while loop.#
 
 def findMyNode(r, c):
-  current_node = PascalNode(Null, Null)
-  while r != 0 and c !=0:
+  current_node = PascalNode(None, None)
+  while r != 0 and c != 1:
     if r == 1:
-      current_node = PascalNode(currentnode.riparen, currentnode.riparen.rikin().riparen)
+      current_node = PascalNode(current_node.riparen, current_node.riparen.rikin().riparen)
       c -= 1
       if r == 1 and c == 1:
-        current_node = PascalNode(currentnode.lefparen.lefkin(), currentnode)
+        current_node = PascalNode(current_node.lefparen.lefkin(), current_node)
     else:
-      current_node = PascalNode(None, currentnode)
+      current_node = PascalNode(None, current_node)
       r -= 1
   return current_node
