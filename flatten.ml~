@@ -6,7 +6,7 @@ type 'a node=
 (*This is a variant type roaming over two differnt options, either one type, or a list of same type*)
 
 let flatten listical =
-  let rec flataux acc = function
+  let flataux acc = function
   |[] -> acc
   |One hd :: listical -> flataux (hd :: acc) listical
   |Many hd :: listical -> flataux (flataux acc hd) listical in 
