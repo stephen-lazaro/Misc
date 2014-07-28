@@ -1,0 +1,3 @@
+let rec destutter = function
+  |a :: (b :: _ as t) -> if a = b then destutter t else a :: destutter t
+  |s -> s
