@@ -23,10 +23,16 @@ class PascalNode:
       return PascalNode(None, self)
     return PascalNode(self.lefparen.lefkin(), self)
 
+  def __str__(self):
+    return "Node Value:" + self.value
 #What I want is a way to measure my depth, but this is hard to do.#
 #Simpler is to just use r and c as parameters on a while loop.#
 
 def findMyNode(r, c):
+  if r + 1 == c:
+    return PascalNode(1, None)
+  elif r + 1 < c:
+    return None
   current_node = PascalNode(None, None)
   while r != 0 and c != 1:
     if r == 1:
