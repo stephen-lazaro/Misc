@@ -1,2 +1,2 @@
-reversus [] = []
-reversus (x:xs) = reversus xs :: (x :: acc)
+reversus f acc [] = []
+reversus f acc (x:xs) = reversus f xs :: (x :: acc)
