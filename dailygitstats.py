@@ -35,4 +35,5 @@ for reposit in ['Ruby', 'Python', 'OCaml', 'Haskell', 'Scala', 'Elliptic']:
             content = json.loads(content)
             statsy = content['stats']
             counts[reposit].append({'adds' : statsy['additions'], 'dels' : stats['deletions'])
-    acc = acc + pair_sum(counts[reposit], 'adds', 'dels)
+    parsumony = pair_sum(counts[reposit], 'adds', 'dels')
+    acc = acc + parsumony[0] + parsumony[1]
