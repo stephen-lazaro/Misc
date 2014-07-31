@@ -3,7 +3,7 @@ import urllib
 import json
 import datetime as dtime
 
-today_began = str(dtime.today) + "T00:00:00Z"
+today_began = str(dtime.date.today) + "T00:00:00Z"
 #GitHub's api returns extra characters that screw up the JSON module's loading stuff
 def clean(given_string):
     first_json = min(index('['), index('{'))
