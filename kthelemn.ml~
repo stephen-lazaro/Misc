@@ -1,7 +1,0 @@
-let rec at kth loc =
-  function
-  |[] -> None
-  |h :: t -> if kth = 1 then Some h else at (kth - 1) t
-;; 
-(*This is a function that takes a list and traverses it*)
-(* Note this recursively calls itself as it pops an item off the list and subtracts 1 off the location as we move forward*)
