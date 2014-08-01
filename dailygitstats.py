@@ -1,5 +1,5 @@
 import sys
-import urllib
+import urllib.request as urlr
 import json
 import datetime as dtime
 
@@ -21,7 +21,7 @@ counts = []
 acc = 0
 for reposit in ['Ruby', 'Python', 'OCaml', 'Haskell', 'Scala', 'Elliptic']:
     counts.append({reposit : []})
-    with urllib.urlopen('http://api.github.com/reps/Vassah/'+reposit+'/commits?since='+today_began) as connecticus:
+    with urlr.urlopen('http://api.github.com/reps/Vassah/'+reposit+'/commits?since='+today_began) as connecticus:
         content = connecticus.read()
         content = clean(connecticus)
         content = json.loads(content)
@@ -34,6 +34,6 @@ for reposit in ['Ruby', 'Python', 'OCaml', 'Haskell', 'Scala', 'Elliptic']:
             content = clean(content)
             content = json.loads(content)
             statsy = content['stats']
-            counts[reposit].append({'adds' : statsy['additions'], 'dels' : stats['deletions'])
+            counts[reposit].append({'adds' : statsy['additions'], 'dels' : stats['deletions']})
     parsumony = pair_sum(counts[reposit], 'adds', 'dels')
     acc = acc + parsumony[0] + parsumony[1]
