@@ -41,10 +41,10 @@ vaz.get()
 print(vaz.value)
 
 def naturals():
-	n,m=0,1
-	while True:
-		yield n
-		n,m = m,m+1
+  n,m=0,1
+  while True:
+    yield n
+    n,m = m,m+1
 
 evens = (2n for n in naturals)
 squares = (n*n for n in naturals)
