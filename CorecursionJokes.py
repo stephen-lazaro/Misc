@@ -11,7 +11,7 @@ class factYielder():
     self.a = x
     
   def get(self):
-    return [x for x in fact()][self.a - 1]
+    return iter(fact())[self.a - 1]
 
 vaz = factYielder(6)
 print(vaz.get())
