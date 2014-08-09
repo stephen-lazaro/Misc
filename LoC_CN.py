@@ -9,9 +9,29 @@ class CallNumber():
     self.tokens = tokenizeLC(cn_string)
   
   def __lt__(self, other):
+    if self == other:
+      return False
+    for i in range(len(self.tokens)):
+      try:
+        if self.tokens[i] < other.tokens[i]:
+          return True
+        return False
+      except IndexError:
+        return False #Only happens if every token in self is same as every token in other but self has more. So other is earlier.
+
   def __gt__(self, other):
-    #Compare each token. If token is GREATER, then the whole is LESS.
+    if self == other:
+      return False
+    for i in range(len(self.tokens)):
+      try:
+        if self.tokens[i] > other.tokens[i]:
+          return True
+        return False
+      except IndexError:
+        return False #Only happens if every token in self is same as every token in other but self has more. So other is earlier.
+
   def __eq__(self, other):
     return self.tokens == other.tokens
+
   def __ne__(self, other):
     return self.tokens != other.tokens
