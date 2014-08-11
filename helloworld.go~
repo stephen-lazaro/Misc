@@ -1,2 +1,10 @@
+package main
 
-println("Hello World")
+import (
+       "fmt"
+       "math"
+)
+
+func main() {
+    fmt.Println("Hello World")
+}
