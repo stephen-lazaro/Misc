@@ -4,23 +4,29 @@ import (
        "net/http"
        "fmt"
        "log"
-       "bufio"
+       "io/ioutil"
+//       "bufio"
 )
 //Get me the first five lines of the webpages given
 
 func main() {
-  url := fmt.Scanln()
-  req, err := http.Get(url)
+  url, err := fmt.Scanln()
   if err != nil {
     log.Fatal(err)
   }
-  i := 0
+  req, err := http.Get(string(url))
+  if err != nil {
+    log.Fatal(err)
+  }
+  fmt.Println(ioutil.ReadAll(req.Body))
+/*  i := 0
   for i < 5 {
-    linez, err := bufio.ReadLine(req.Body)
+    linez, err := bufio.ScanLine(req.Body)
     if err != nil {
       log.Fatal(err)
     }
     fmt.Println(linez)
     i = i + 1
-  }
+  }*/
+  req.Body.Close()
 }
