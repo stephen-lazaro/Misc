@@ -5,6 +5,7 @@ package main
 import (
     "fmt"
     "bufio"
+    "log"
     )
 
 //Let's get the nth fibonacci number
@@ -20,5 +21,8 @@ func fib(n uint32) uint32 {
 func main() {
   var n uint32
   _, err := fmt.Scanf("%d", &n)
+  if err != nil {
+    log.Fatal(err)
+  }
   fmt.Printf("%d\n", fib(n))
 }
