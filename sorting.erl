@@ -12,6 +12,11 @@ splitpiv(Left, Right, _, [])                           -> [[Left] | [Right]];
 splitpiv(Left, Right, Pivot, [Hd|Lz]) when Hd > Pivot  -> splitpiv(Left, [Hd | Right], Pivot, Lz);
 splitpiv(Left, Right, Pivot, [Hd|Lz]) when Hd =< Pivot -> splitpiv([Hd | Left], Right, Pivot, Lz).
 
+%Something tells me both of those are better written in list comprehensions, (which I didn't even know about at the time).
+splitpiv_list_comp
+splith_list_comp
+
+
 quicksorts([])                 -> [];
 %quicksorts([A, B]) when A =< B -> [A, B];
 %quicksorts([A, B]) when A > B  -> [B, A];
