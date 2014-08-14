@@ -4,7 +4,7 @@ import (
   "fmt"
   )
 
-func fact(n) {
+func fact(n uint32) uint32 {
   if n == 0 {
     return 1
   } else {
@@ -14,6 +14,6 @@ func fact(n) {
 
 func main() {
   for i := 0; i<6; i++ {
-    fmt.Printf("%d", fact(i))
+    fmt.Printf("%d\n", fact(uint32(i)))
   }
 }
