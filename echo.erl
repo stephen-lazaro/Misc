@@ -4,10 +4,13 @@
 go() ->
   Pid = spawn(echo, loop, []),
   Pid ! {self(), hello},
+  receiveEcho(Pid),
+  Pid ! stop.
+
+receiveEcho(Pid) ->
   receive
     {Pid, Msg} -> io:format("~w~n", [Msg])
-  end,
-  Pid ! stop.
+  end.
 
 loop() ->
   receive

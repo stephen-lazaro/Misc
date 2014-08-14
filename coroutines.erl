@@ -1,16 +1,16 @@
 -module(coroutines).
--export([getNaturals/0, receiveNaturals/0, naturals/1]).
+-export([getNaturals/0, receiveNaturals/1, naturals/1]).
 
 getNaturals() ->
   Pid = spawn(coroutines, naturals, [53]),
   Pid ! {self(), start},
-  receiveNaturals(),
+  receiveNaturals(Pid),
   Pid ! stop.
 
-receiveNaturals() ->
+receiveNaturals(Spid) ->
   receive
-    {_, 0}   -> io:format("~w~n", [0]);
-    {Spid, N} -> io:format("~w~n", [N]), Spid ! next, receiveNaturals()
+    {_, 0}    -> io:format("~w~n", [0]);
+    {Spid, N} -> io:format("~w~n", [N]), Spid ! next, receiveNaturals(Spid)
   end.
 
 naturals(N) ->
