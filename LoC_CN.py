@@ -5,8 +5,11 @@ def tokenizeLC(cn_string):
     
 
 class CallNumber():
-  def __init__(self, cn_string):
-    self.tokens = tokenizeLC(cn_string)
+  def __init__(self, cn):
+    if cn is str:
+      self.tokens = tokenizeLC(cn_string)
+    elif isinstance(cn, list):
+      self.tokens = cn
   
   def __lt__(self, other):
     if self == other:
@@ -17,7 +20,7 @@ class CallNumber():
           return True
         return False
       except IndexError:
-        return False #Only happens if every token in self is same as every token in other but self has more. So other is earlier.
+        return True #Only happens if every token in self is same as every token in other but self has more. So other is earlier.
 
   def __gt__(self, other):
     if self == other:
@@ -35,3 +38,12 @@ class CallNumber():
 
   def __ne__(self, other):
     return self.tokens != other.tokens
+
+def test():
+  cna = CallNumber(["PN", 1956, "A", 3302])
+  cnb = CallNumber(["B", 3012, "F", 45])
+  print(cna < cnb)  #Should be True (If I remember right)
+  print(cna == cnb) #Should be False
+  print(cna != cnb) #Should be True
+
+test()
