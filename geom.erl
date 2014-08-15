@@ -5,14 +5,19 @@
 %% @version 0.1
 
 -module(geom).
--export([area/2]).
+-export([area/1, area/2]).
 
 %%% Calculates the area of a rectangular figure given the width and height of said figure.
 area(0,_) -> 0;
 area(_,0) -> 0;
 area(Height,Width) -> Height * Width.
 
-%%% Pattern matches against shap tag, then decides what calculation to make. If
-area(triangle, Base, Height) -> area(Base, Height) div 2;
-area(eircle, RadiusMajor, RadiusMinor) -> math:pi * area(RadiusMajor, RadiusMinor);
-area(_, X, Y) -> area(X, Y).
+%%% Pattern matches against shap tag, then decides what calculation to make. If tag isn't triangle or ellipse, we default to rectangle.
+%%% Also calculates the area of a plane figure.
+area(triangle, Base, Height) when Base >= 0, Height >=0                         -> area(Base, Height) div 2;
+area(ellipse, RadiusMajor, RadiusMinor) when RadiusMajor >= 0, RadiusMinor >= 0 -> math:pi * area(RadiusMajor, RadiusMinor);
+area(_, X, Y) when X >= 0, Y >= 0                                               -> area(X, Y);
+area(_, _, _) -> 0. %The question asks us to purposefully ignore the let it fail convention.
+
+%%% A tuple parametrized wrapper for area/3. Takes an atom referring to a shape, then calculates its area using the other two fields.
+area({Term, X, Y}) -> area(Term, X, Y).
