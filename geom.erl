@@ -5,7 +5,7 @@
 %% @version 0.1
 
 -module(geom).
--export([area/1, area/2]).
+-export([area/1]).
 
 %%% Calculates the area of a rectangular figure given the width and height of said figure.
 area(0,_) -> 0;
@@ -20,4 +20,14 @@ area(_, X, Y) when X >= 0, Y >= 0                                               
 area(_, _, _) -> 0. %The question asks us to purposefully ignore the let it fail convention.
 
 %%% A tuple parametrized wrapper for area/3. Takes an atom referring to a shape, then calculates its area using the other two fields.
-area({Term, X, Y}) -> area(Term, X, Y).
+area({Term, X, Y}) -> area(Term, X, Y);
+area({_S, Term, X, Y}) -> area(_S, Term, X, Y).
+
+%%%We are asked to rewrite area/3 to use a case. I'm going to write it as area/4 just so this'll all compile.
+area(_, Term, X, Y) when X>= 0, Y>=0 ->
+  case Term of
+    triangle -> area(X, Y) div 2;
+    elliptse -> area(x, y) * math:pi;
+    _        -> area(x, y);
+  end;
+area(_, _, _, _) -> 0.
