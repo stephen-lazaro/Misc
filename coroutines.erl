@@ -9,7 +9,7 @@ getNaturals() ->
 
 receiveNaturals(Spid) ->
   receive
-    {_, 0}    -> io:format("~w~n", [0]);
+    {_, 0}    -> io:format("~w~n", [0]), true;
     {Spid, N} -> io:format("~w~n", [N]), Spid ! next, receiveNaturals(Spid)
   end.
 
