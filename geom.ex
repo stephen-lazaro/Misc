@@ -8,6 +8,6 @@ defmodule Geom do
     case Shape do
       :triangle -> area(X, Y) div 2
       :ellipse  -> area(X, Y) * math:pi
-      _        -> area(X, Y)
+      _         -> area(X, Y)
     end
   end
