@@ -15,7 +15,7 @@ area(Height,Width) -> Height * Width.
 %%% Pattern matches against shap tag, then decides what calculation to make. If tag isn't triangle or ellipse, we default to rectangle.
 %%% Also calculates the area of a plane figure.
 area(triangle, Base, Height) when Base >= 0, Height >=0                         -> area(Base, Height) div 2;
-area(ellipse, RadiusMajor, RadiusMinor) when RadiusMajor >= 0, RadiusMinor >= 0 -> math:pi * area(RadiusMajor, RadiusMinor);
+area(ellipse, RadiusMajor, RadiusMinor) when RadiusMajor >= 0, RadiusMinor >= 0 -> math:pi() * RadiusMajor * RadiusMinor;
 area(_, X, Y) when X >= 0, Y >= 0                                               -> area(X, Y);
 area(_, _, _) -> 0. %The question asks us to purposefully ignore the let it fail convention.
 
@@ -27,7 +27,7 @@ area({_S, Term, X, Y}) -> area(_S, Term, X, Y).
 area(_, Term, X, Y) when X>= 0, Y>=0 ->
   case Term of
     triangle -> area(X, Y) div 2;
-    elliptse -> area(x, y) * math:pi;
-    _        -> area(x, y);
+    ellipse  -> area(X, Y) * math:pi();
+    _        -> area(X, Y)
   end;
 area(_, _, _, _) -> 0.
