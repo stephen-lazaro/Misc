@@ -59,6 +59,8 @@ compressr([Hd|Lz]) -> compressaux(Lz, [Hd], Hd).
 %Packs redundances into a sublist
 packaux([], Tacc, Acc, _)                          -> [Tacc|Acc];
 packaux([Hd|Lz], Tacc, Acc, Flag) when Hd =:= Flag -> packaux(Lz, [Hd|Tacc], Acc, Flag);
-packaux([Hd|Lz], Tacc, Acc, Flag) when Hd =/= Flag -> packaux(Lz, [], [[Hd|Tacc]|Acc], Hd).
+packaux([Hd|Lz], Tacc, Acc, Flag) when Hd =/= Flag -> packaux(Lz, [Hd], [Tacc|Acc], Hd).
 packr([])      -> [];
-packr([Hd|Lz]) -> packaux([Hd|Lz], [Hd], [], Hd).
+packr([Hd|Lz]) -> packaux([Hd|Lz], [], [], Hd).
+
+%
