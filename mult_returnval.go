@@ -5,13 +5,18 @@ import (
   )
 
 func main() {
+    i,j := 5,6
+    s,p,d := sumproddiff(i, j)
+    fmt.Println(s)
+    fmt.Println(p)
+    fmt.Println(d)
 }
 
 func sumprodiffanon(a int, b int) (int, int, int) {
     return a + b, a*b, a - b
 }
 
-func somprodiff(a int, b int) (sum int, product int, difference int) {
+func sumprodiff(a int, b int) (sum int, product int, difference int) {
     sum = a + b
     product = a * b
     difference = a - b
