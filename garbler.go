@@ -4,38 +4,37 @@ import (
   "fmt"
   "bufio"
   "os"
-  "string"
   )
 
-const letterShift map[string]string
-letterShift["a"] = "e"
-letterShift["e"] = "i"
-letterShift["o"] = "u"
-letterShift["u"] = "a"
+var letterShift map[string]string = map[string]string{"a": "e", "e": "i", "i": "o", "o":"u", "u": "a"}
 
 func main() {
     fmt.Println("What do you want me to garble?")
-    filename, err := fmt.Scanln()
+    var filename string
+    bytes, err := fmt.Scanln(filename)
     if err != nil {
         fmt.Println("I did not understand anything you just said, honestly.")
         os.Exit(1)
     }
-    garblee = openFile(filename)
-    garbled = garble(garblee)
+    garblee := openFile(filename)
+    garbled := garble(garblee)
     printToOut(garbled)
 }
 
 
-func openFile(filename string) bufio.Reader{
-    filed := os.Open(filename)
-    filebuffer = bufio.NewReader(filed)
+func openFile(filename string) *bufio.Reader{
+    filed, err := os.Open(filename)
+    if err != nil {
+        os.Exit(1)
+    }
+    filebuffer := bufio.NewReader(filed)
     defer filed.Close()
     return filebuffer
 }
 
-func garble(garblee bufio.Reader) string {
+func garble(garblee *bufio.Reader) string {
     acc := ""
-    for character,position := range garblee {
+    for character,position := range *garblee {
         _,err := letterShift[character]
         if err != nil {
             acc += character
@@ -47,12 +46,14 @@ func garble(garblee bufio.Reader) string {
 }
 
 func printToOut(garbled string) {
-    empty := os.Create("garbled.txt")
-    _, err := empty.WriteString(string)
+    empty, err := os.Create("garbled.txt")
     if err != nil {
         os.Exit(1)
     }
-    else {
+    _, err = empty.WriteString(garbled)
+    if err != nil {
+        os.Exit(1)
+    } else {
         os.Exit(0)
     }
 }
