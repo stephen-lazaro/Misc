@@ -63,4 +63,5 @@ packaux([Hd|Lz], Tacc, Acc, Flag) when Hd =/= Flag -> packaux(Lz, [Hd], [Tacc|Ac
 packr([])      -> [];
 packr([Hd|Lz]) -> packaux([Hd|Lz], [], [], Hd).
 
-%
+%Run length encoding of list
+rler
