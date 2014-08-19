@@ -26,3 +26,4 @@ phaux(_, 0, Acc) -> Acc + 1;
 phaux(N, M, Acc) -> phaux(N, M - 1, Acc + coprime_num(M,N)).
 phi(N) -> phaux(N, N, 0).
 
+%

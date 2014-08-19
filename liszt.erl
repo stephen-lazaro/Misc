@@ -1,6 +1,6 @@
 %%% As seen in 99 Problems in Scheme (or OCaml, if you swing that way)
 -module(liszt).
--export([lastr/1, pop2/1, penlast/1, penlastr/1, kthOf/2, len/1, reverse/1, palindrome/1, flattenr/1, compressr/1, packr/1, rler/1]).
+-export([lastr/1, pop2/1, penlast/1, penlastr/1, kthOf/2, len/1, reverse/1, palindrome/1, flattenr/1, compressr/1, packr/1, rler/1, mrler/1]).
 
 %Get's the last element of the list
 lastr([A])    -> A;
@@ -69,3 +69,9 @@ rlaux([Hd|Lz], Tacc, Acc, Flag) when Hd =:= Flag -> rlaux(Lz, Tacc, Acc + 1, Fla
 rlaux([Hd|Lz], Tacc, Acc, Flag) when Hd =/= Flag -> rlaux(Lz, [[Acc + 1, Flag]|Tacc], 0, Hd).
 rler([]) -> [];
 rler([Hd|Lz]) -> rlaux([Hd|Lz], [], -1, Hd).
+
+%Modified run length encoding DOESN'T QUITE WORK (NOBLE EFFORT THOUGH)
+mrlaux([], Acc)         -> Acc;
+mrlaux([[A,B]|Lz], Acc) -> mrlaux(Lz, [B|Acc]);
+mrlaux([Hd|Lz], Acc)    -> mrlaux(Lz, [Hd|Acc]).
+mrler(Lz) -> mrlaux(rler(Lz), []).
