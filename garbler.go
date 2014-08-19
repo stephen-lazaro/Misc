@@ -34,12 +34,19 @@ func openFile(filename string) *bufio.Reader{
 
 func garble(garblee *bufio.Reader) string {
     acc := ""
-    for character,position := range *garblee {
-        _,err := letterShift[character]
-        if err != nil {
-            acc += character
-         } else {
-            acc += letterShift[character]
+    for  {
+        inputLine, err := *garblee.ReadString("\n")
+        if err == io.EOF {
+            break
+        }
+        
+        for position,character := range inputLine { 
+            _,err := letterShift[character]
+            if err != nil {
+                acc += character
+            } else {
+                acc += letterShift[character]
+            }
         }
     }
     return acc
