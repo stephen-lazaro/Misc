@@ -4,7 +4,8 @@ import (
     "fmt"
   )
 
-func main() { }
+func main() {
+}
 
 func sumprodiffanon(a int, b int) (int, int, int) {
     return a + b, a*b, a - b
