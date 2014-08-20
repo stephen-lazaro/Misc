@@ -83,11 +83,14 @@ derlaux([[A,B]|Lz], Acc) -> derlaux([[A-1,B]|Lz],[B|Acc]).
 derler(Lz) -> derlaux(Lz, []).
 
 %Direct solution to the run length encoding problem; instead of constructinhg lists count things
-drleaux([], Flag, Count, Acc) -> reverse([[Count, Flag]|Acc]);
-drleaux([Hd|Lz], Flag, Count, Acc) when Hd =:= Flag -> drleaux(Lz, Flag, Count + 1, Acc);
+drleaux([], Flag, Count, Acc)                                    -> reverse([[Count, Flag]|Acc]);
+drleaux([Hd|Lz], Flag, Count, Acc) when Hd =:= Flag              -> drleaux(Lz, Flag, Count + 1, Acc);
 drleaux([Hd|Lz], Flag, Count, Acc) when Hd =/= Flag, Count =:= 1 -> drleaux(Lz, Hd, 1, [Flag]|Acc];
 drleaux([Hd|Lz], Flag, Count, Acc) when Hd =/= Flag, Count =/= 1 -> drleaux(Lz, Hd, 1, [[Count, Flag]|Acc].
 drler([])      -> [];
 drler([Hd|Lz]) -> drelaux([Hd|Lz], Hd, 0, []).
 
-%
+%Returns a list with every element duplicated
+dupaux([])      -> [];
+dupaux([Hd|Lz]) -> [Hd|[Hd|dupe(Lz)]].
+dupe(Lz) -> reverse(dupaux(Lz)).
