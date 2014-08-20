@@ -83,8 +83,11 @@ derlaux([[A,B]|Lz], Acc) -> derlaux([[A-1,B]|Lz],[B|Acc]).
 derler(Lz) -> derlaux(Lz, []).
 
 %Direct solution to the run length encoding problem; instead of constructinhg lists count things
-drelaux([], Flag, Count, Acc) -> reverse([[Count, Flag]|Acc]);
-drelaux([Hd|Lz], Flag, Count, Acc) when Hd =:= Flag -> drelaux(Lz, Flag, Count + 1, Acc);
-drelaux([Hd|Lz], Flag, Count, Acc) when Hd =/= Flag -> drelaux(Lz, Hd, 1, [[Count, Flag]|Acc].
-drelr([])      -> [];
-drelr([Hd|Lz]) -> drelaux([Hd|Lz], Hd, 0, []).
+drleaux([], Flag, Count, Acc) -> reverse([[Count, Flag]|Acc]);
+drleaux([Hd|Lz], Flag, Count, Acc) when Hd =:= Flag -> drleaux(Lz, Flag, Count + 1, Acc);
+drleaux([Hd|Lz], Flag, Count, Acc) when Hd =/= Flag, Count =:= 1 -> drleaux(Lz, Hd, 1, [Flag]|Acc];
+drleaux([Hd|Lz], Flag, Count, Acc) when Hd =/= Flag, Count =/= 1 -> drleaux(Lz, Hd, 1, [[Count, Flag]|Acc].
+drler([])      -> [];
+drler([Hd|Lz]) -> drelaux([Hd|Lz], Hd, 0, []).
+
+%
