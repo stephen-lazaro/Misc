@@ -5,6 +5,7 @@ import (
     "fmt"
     "bufio"
     "os"
+    "io" //use io.EOF to test for end of file
     )
 
 func main() {
