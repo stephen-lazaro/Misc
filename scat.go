@@ -8,10 +8,11 @@ import (
     )
 
 func main() {
+    var first, second string
     fmt.Println("What two files do you want to concatenate? Separate with spaces, please.")
     fmt.Scanln(&first, &second)
-    firstFile := openFile(first)
-    secondFile := openFile(second)
+    firstFile := openFile(&first)
+    secondFile := openFile(&second)
     acc := ""
     readInto(firstFile, &acc)
     readInto(secondFile, &acc)
@@ -27,18 +28,18 @@ func writeResult(concatd bufio.Writer, material *string) {
 }
 
 func copyDirect(dest *os.File, srcA *os.File, srcB *os.File) int {
-    defer *srcA.Close()
-    defer *srcB.Close()
-    defer *dest.Close()
+    defer srcA.Close()
+    defer srcB.Close()
+    defer dest.Close()
     aReader := bufio.NewReader(*srcA)
     bReader := bufio.NewReader(*srcB)
-    dest    := bufio.NewWriter(*dest)
+    destReader := bufio.NewWriter(*dest)
     _, err := io.Copy(*dest, *srcA)
     if err != nil {
         fmt.Println("First file copy failed!")
         return 1
     }
-    _, err := io.Copy(*dest, *srcB)
+    _, err = io.Copy(*dest, *srcB)
     if err != nil {
         fmt.Println("Second file copy failed!")
         return 2
