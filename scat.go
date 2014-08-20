@@ -15,13 +15,14 @@ func main() {
     secondFileReader := openFile(second)
     acc := ""
     dest := makeNewFile(&first, &second)
-    readInto(&dest, &firstFileReader)
-    readInto(&dest, &secondFileReader)
+    readInto(&acc, firstFileReader)
+    readInto(&acc, secondFileReader)
+    writeResult(dest, &acc)
 }
 
-func readInto(destin *bufio.Writer, sourz *bufio.Reader) { }
+func readInto(destin *string, sourz *bufio.Reader) { }
 
-func writeResult(concatd bufio.Writer, material *string) {
+func writeResult(concatd *bufio.Writer, material *string) {
     success, err := concatd.WriteString(*material)
     if err != nil {
         fmt.Println("Writing failed!")
@@ -29,7 +30,7 @@ func writeResult(concatd bufio.Writer, material *string) {
     }
 }
 
-func openFile(filename string) bufio.Reader {
+func openFile(filename string) *bufio.Reader {
     filehand, err := os.Open(filename)
     if err != nil {
         fmt.Println("Are you sure that was a file?")
@@ -40,9 +41,13 @@ func openFile(filename string) bufio.Reader {
     return filereader
 }
 
-func makeNewFile(filenameA *string, filenameB *string) bufio.Writer {
+func makeNewFile(filenameA *string, filenameB *string) *bufio.Writer {
     newName := *filenameA + "&" + *filenameB + ".txt"
-    newFile := os.Create(newName)
+    newFile, err := os.Create(newName)
+    if err != nil {
+        fmt.Println("Whoa that went sideways, no file creation for you")
+        os.Exit(1)
+    }
     newFileWriter := bufio.NewWriter(newFile)
     return newFileWriter
 }
