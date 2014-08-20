@@ -11,12 +11,11 @@ func main() {
     var first, second string
     fmt.Println("What two files do you want to concatenate? Separate with spaces, please.")
     fmt.Scanln(&first, &second)
-    firstFile := openFile(&first)
-    secondFile := openFile(&second)
+    firstFile := openFile(first)
+    secondFile := openFile(second)
     acc := ""
-    readInto(firstFile, &acc)
-    readInto(secondFile, &acc)
-    writeResult(makeNewFile(first, second), &acc)
+    dest := makeNewFile(&first, &second)
+    copyDirect(dest, firstFile, secondFile)
 }
 
 func writeResult(concatd bufio.Writer, material *string) {
@@ -58,11 +57,9 @@ func openFile(filename string) bufio.Reader {
     return filereader
 }
 
-func makeNewFile(filenameA *string, filenameB *string) bufio.Writer {
+func makeNewFile(filenameA *string, filenameB *string) os.File {
     newName := *filenameA + "&" + *filenameB + ".txt"
     newFile := os.Create(newName)
-    defer newFile.Close()
-    newFileWriter := bufio.NewWriter(newFile)
-    return newFileWriter
+    return newFile
 }
 
