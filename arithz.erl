@@ -33,7 +33,7 @@ naiprimer(N, M) when N rem M =/= 0 -> naiprimer(N, M-1).
 naiprime(N) -> naiprimer(N, N - 1).
 
 %Get the list of prime factors
-facaux(_, 0, Acc)                    -> Acc;
+facaux(_, 1, Acc)                    -> Acc;
 facaux(N, M, Acc) when N rem M =/= 0 -> facaux(N, M - 1, Acc);
-facaux(N, M, Acc) when N rem M =:= 0 -> facaux(N rem M, M, [M | Acc]).
+facaux(N, M, Acc) when N rem M =:= 0 -> facaux(N div M, M, [factors(M) | Acc]).
 factors(N) -> facaux(N, N-1, []).
