@@ -1,3 +1,4 @@
+//Works perfectly. Nice that we can return an error value and just test against that instead of doing try catch idioms.
 package main
 
 import (
@@ -19,8 +20,8 @@ func MySqrt(a float32) (root float32, err error) {
 }
 
 func main() {
-    i, j float32
-    err error
+    var i, j float32
+    var err error
     i, j = 45,-45
     i,err = MySqrt(i)
     fmt.Println(err)

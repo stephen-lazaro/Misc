@@ -1,3 +1,4 @@
+//Works perfectly! Very cool the way that Go makes the syntax pretty expressive.
 package main
 
 import (
@@ -6,7 +7,7 @@ import (
 
 func main() {
     i,j := 5,6
-    s,p,d := sumproddiff(i, j)
+    s,p,d := sumprodiff(i, j)
     fmt.Println(s)
     fmt.Println(p)
     fmt.Println(d)
