@@ -5,51 +5,76 @@ import (
     "fmt"
     "bufio"
     "os"
-    "io" //use io.EOF to test for end of file
+    "io"
     )
 
 func main() {
     var first, second string
     fmt.Println("What two files do you want to concatenate? Separate with spaces, please.")
     fmt.Scanln(&first, &second)
-    firstFileReader := openFile(first)
-    secondFileReader := openFile(second)
+    firstHand, firstFileReader := openFile(first)
+    secondHand, secondFileReader := openFile(second)
     acc := ""
-    dest := makeNewFile(&first, &second)
+    destHand, destWriter := makeNewFile(&first, &second)
     readInto(&acc, firstFileReader)
     readInto(&acc, secondFileReader)
-    writeResult(dest, &acc)
+    writeResult(destWriter, &acc)
+    firstHand.Close()
+    secondHand.Close()
+    destHand.Close()
 }
 
-func readInto(destin *string, sourz *bufio.Reader) { }
+func readInto(destin *string, sourz *bufio.Reader) *string {
+    fmt.Println("Reading!")
+    for {
+        inputLine, err := sourz.ReadString('\n')
+        fmt.Println("Reading...")
+        if err == io.EOF {
+            break
+        } else if err != nil {
+            fmt.Println("Something went awry!")
+            os.Exit(-1)
+        }
+        for _,character :=  range inputLine {
+            fmt.Println("Adding characters...")
+            *destin += string(character)
+        }
+    }
+    *destin += "\n"
+    return destin
+}
 
 func writeResult(concatd *bufio.Writer, material *string) {
-    success, err := concatd.WriteString(*material)
-    if err != nil {
-        fmt.Println("Writing failed!")
-        os.Exit(1)
+    fmt.Println("Writing!")
+    for _, character := range *material {
+        _, err := concatd.WriteRune(character)
+        if err != nil {
+            fmt.Println("Writing failed!")
+            os.Exit(1)
+        }
     }
 }
 
-func openFile(filename string) *bufio.Reader {
+func openFile(filename string) (*os.File, *bufio.Reader) {
+    fmt.Println("Opening!")
     filehand, err := os.Open(filename)
     if err != nil {
         fmt.Println("Are you sure that was a file?")
         os.Exit(-1)
     }
-    defer filehand.Close()
     filereader := bufio.NewReader(filehand)
-    return filereader
+    return filehand, filereader
 }
 
-func makeNewFile(filenameA *string, filenameB *string) *bufio.Writer {
-    newName := *filenameA + "&" + *filenameB + ".txt"
+func makeNewFile(filenameA *string, filenameB *string) (*os.File, *bufio.Writer) {
+    untxtA, untxtB := (*filenameA)[0:len(*filenameA) - 4], (*filenameB)[0:len(*filenameB) - 4]
+    newName := untxtA + "&" + untxtB + ".txt"
     newFile, err := os.Create(newName)
     if err != nil {
         fmt.Println("Whoa that went sideways, no file creation for you")
         os.Exit(1)
     }
     newFileWriter := bufio.NewWriter(newFile)
-    return newFileWriter
+    return newFile, newFileWriter
 }
 
