@@ -1,20 +1,22 @@
 --Returns the last element of a list
-last [] = nil
-last Hd:[] = Hd
-last Hd:Lz = last Lz
+lastr [] = False
+lastr (hd:[]) = hd
+lastr (hd:lz) = lastr lz
 
 --Returns the last two elements of a list
-last [] = []
-last Hd:[] = [Hd]
-last Hd:Hdd:[] = [Hd, Hdd]
-last Hd:Lz = last Lz
+penlast [] = []
+penlast (hd:[]) = [hd]
+penlast (hd:(hdd:[])) = [hd, hdd]
+penlast (hd:lz) = penlast lz
 
 --Returns the kth element of a list
 at _ []    = False
-at 0 Hd:_ = Hd
-at N Hd:Lz = at (N - 1) Lz
+at 0 (hd:_) = hd
+at n (hd:lz) = at (n - 1) lz
 
 --Returns the number of elements in a list
-laux [] Acc    = Acc
-laux Hd:Lz Acc = laux Lz (Acc + 1)
-length Ls = laux Ls 0
+laux [] acc    = acc
+laux (hd:lz) acc = laux lz (acc + 1)
+length ls = laux ls 0
+
+--
