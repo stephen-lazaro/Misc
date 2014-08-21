@@ -1,6 +1,6 @@
 %%% As seen in 99 Problems in Scheme (or OCaml, if you swing that way)
 -module(liszt).
--export([lastr/1, pop2/1, penlast/1, penlastr/1, kthOf/2, len/1, reverse/1, palindrome/1, flattenr/1, compressr/1, packr/1, rler/1, mrler/1, derler/1, drler/1, dupe/1, dropr/2, splitr/2]).
+-export([lastr/1, pop2/1, penlast/1, penlastr/1, kthOf/2, len/1, reverse/1, palindrome/1, flattenr/1, compressr/1, packr/1, rler/1, mrler/1, derler/1, drler/1, dupe/1, dropr/2, splitr/2, slicer/3, rot/2]).
 
 %Get's the last element of the list
 lastr([A])    -> A;
@@ -32,7 +32,7 @@ kthOf([_|Lz], Acc) -> kthOf(Lz, Acc - 1).
 
 %Returns the length, tail recursive
 lenaux([], Acc)     -> Acc;
-lenaux([_,Lz], Acc) -> lenaux(Lz, Acc + 1).
+lenaux([_|Lz], Acc) -> lenaux(Lz, Acc + 1).
 len(Lz)             -> lenaux(Lz, 0).
 
 %Reverses the given list!
@@ -99,10 +99,20 @@ dupe(Lz) -> dupaux(Lz).
 %Drop every nth character of the list given
 draux(_, _, [], Acc)      -> reverse(Acc);
 draux(N, 1, [Hd|Lz], Acc) -> draux(N, N, Lz, [Hd|Acc]);
-draux(N, M, [_|Lz], Acc)      -> draux(N, M-1, Lz, Acc). 
+draux(N, M, [_|Lz], Acc)  -> draux(N, M-1, Lz, Acc). 
 dropr(N, Lz) -> draux(N, N, Lz, []).
 
 %Splits a list into two parts when the length of the first is given
 splaux(Lz, 0, Acc)      -> {reverse(Acc), Lz};
 splaux([Hd|Lz], N, Acc) -> splaux(Lz, N - 1, [Hd|Acc]).
 splitr(Lz, N) -> splaux(Lz, N, []).
+
+%Extracts a slice from a list.
+slice_aux(_,_, _, [], Acc) -> reverse(Acc);
+slice_aux(0, M, T, _, Acc) when M =:= T -> reverse(Acc);
+slice_aux(0, M, T, [Hd|Lz], Acc)       -> slice_aux(0, M - 1, T, Lz, [Hd|Acc]);
+slice_aux(N, M, T, [_|Lz], Acc)        -> slice_aux(N - 1, M, T, Lz, Acc).
+slicer(N, M, Lz) -> slice_aux(N, M, N, Lz, []).
+
+%Rotates a list n slices to the left. This particular version only works if N < len(Lz)
+rot(N, Lz) -> slicer(N rem len(Lz), len(Lz), Lz) ++ slicer(0, N rem len(Lz), Lz).
