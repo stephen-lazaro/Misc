@@ -18,7 +18,9 @@ func main() {
     destHand, destWriter := makeNewFile(&first, &second)
     readInto(&acc, firstFileReader)
     readInto(&acc, secondFileReader)
-    writeResult(destWriter, &acc)
+    fmt.Println(acc)
+    r := writeResult(destWriter, &acc)
+    fmt.Println(r)
     firstHand.Close()
     secondHand.Close()
     destHand.Close()
@@ -44,14 +46,16 @@ func readInto(destin *string, sourz *bufio.Reader) *string {
     return destin
 }
 
-func writeResult(concatd *bufio.Writer, material *string) {
+func writeResult(concatd *bufio.Writer, material *string) int {
     fmt.Println("Writing!")
-    for _, character := range *material {
-        _, err := concatd.WriteRune(character)
-        if err != nil {
-            fmt.Println("Writing failed!")
-            os.Exit(1)
-        }
+    _,err := concatd.WriteString(*material)
+    if err != nil {
+        fmt.Println("No writing for you!")
+        return -1
+    } else {
+        fmt.Println("No error")
+        concatd.Flush()
+        return 1
     }
 }
 
@@ -68,8 +72,8 @@ func openFile(filename string) (*os.File, *bufio.Reader) {
 
 func makeNewFile(filenameA *string, filenameB *string) (*os.File, *bufio.Writer) {
     untxtA, untxtB := (*filenameA)[0:len(*filenameA) - 4], (*filenameB)[0:len(*filenameB) - 4]
-    newName := untxtA + "&" + untxtB + ".txt"
-    newFile, err := os.Create(newName)
+    newName := untxtA + "_and_" + untxtB + ".txt"
+    newFile, err := os.OpenFile(newName, os.O_WRONLY|os.O_CREATE, 0666)
     if err != nil {
         fmt.Println("Whoa that went sideways, no file creation for you")
         os.Exit(1)
