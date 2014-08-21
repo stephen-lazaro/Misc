@@ -1,6 +1,6 @@
 %%% As seen in 99 Problems in Scheme (or OCaml, if you swing that way)
 -module(liszt).
--export([lastr/1, pop2/1, penlast/1, penlastr/1, kthOf/2, len/1, reverse/1, palindrome/1, flattenr/1, compressr/1, packr/1, rler/1, mrler/1, derler/1, drler/1, dupe/1, dropr/2]).
+-export([lastr/1, pop2/1, penlast/1, penlastr/1, kthOf/2, len/1, reverse/1, palindrome/1, flattenr/1, compressr/1, packr/1, rler/1, mrler/1, derler/1, drler/1, dupe/1, dropr/2, splitr/2]).
 
 %Get's the last element of the list
 lastr([A])    -> A;
@@ -63,7 +63,7 @@ packaux([Hd|Lz], Tacc, Acc, Flag) when Hd =/= Flag -> packaux(Lz, [Hd], [Tacc|Ac
 packr([])      -> [];
 packr([Hd|Lz]) -> packaux([Hd|Lz], [], [], Hd).
 
-%Run length encoding of list
+%Run length encoding of list (notice the second guard is strictly not necessary, but I include it to make the function self-documenting)
 rlaux([], Tacc, Acc, Flag)                       -> reverse([[Acc + 1,Flag]|Tacc]);
 rlaux([Hd|Lz], Tacc, Acc, Flag) when Hd =:= Flag -> rlaux(Lz, Tacc, Acc + 1, Flag);
 rlaux([Hd|Lz], Tacc, Acc, Flag) when Hd =/= Flag -> rlaux(Lz, [[Acc + 1, Flag]|Tacc], 0, Hd).
@@ -99,5 +99,10 @@ dupe(Lz) -> dupaux(Lz).
 %Drop every nth character of the list given
 draux(_, _, [], Acc)      -> reverse(Acc);
 draux(N, 1, [Hd|Lz], Acc) -> draux(N, N, Lz, [Hd|Acc]);
-draux(N, M, Lz, Acc)      -> draux(N, M-1, Lz, Acc). 
+draux(N, M, [_|Lz], Acc)      -> draux(N, M-1, Lz, Acc). 
 dropr(N, Lz) -> draux(N, N, Lz, []).
+
+%Splits a list into two parts when the length of the first is given
+splaux(Lz, 0, Acc)      -> {reverse(Acc), Lz};
+splaux([Hd|Lz], N, Acc) -> splaux(Lz, N - 1, [Hd|Acc]).
+splitr(Lz, N) -> splaux(Lz, N, []).
