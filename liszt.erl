@@ -1,6 +1,6 @@
 %%% As seen in 99 Problems in Scheme (or OCaml, if you swing that way)
 -module(liszt).
--export([lastr/1, pop2/1, penlast/1, penlastr/1, kthOf/2, len/1, reverse/1, palindrome/1, flattenr/1, compressr/1, packr/1, rler/1, mrler/1, derler/1]).
+-export([lastr/1, pop2/1, penlast/1, penlastr/1, kthOf/2, len/1, reverse/1, palindrome/1, flattenr/1, compressr/1, packr/1, rler/1, mrler/1, derler/1, drler/1, dupe/1, dropr/2]).
 
 %Get's the last element of the list
 lastr([A])    -> A;
@@ -25,7 +25,7 @@ penlastr([A])    -> [A];
 penlastr([A, B]) -> [A,B];
 penlastr([_|Lz]) -> penlastr(Lz).
 
-%Returns the kth element of a list
+%Returns the kth element of a list (second argument is k, if you dig)
 kthOf([], _)       -> none;
 kthOf([Hd|_], 0)   -> Hd;
 kthOf([_|Lz], Acc) -> kthOf(Lz, Acc - 1).
@@ -82,15 +82,22 @@ derlaux([[1,B]|Lz], Acc) -> derlaux(Lz, [B|Acc]);
 derlaux([[A,B]|Lz], Acc) -> derlaux([[A-1,B]|Lz],[B|Acc]).
 derler(Lz) -> derlaux(Lz, []).
 
-%Direct solution to the run length encoding problem; instead of constructinhg lists count things
-drleaux([], Flag, Count, Acc)                                    -> reverse([[Count, Flag]|Acc]);
-drleaux([Hd|Lz], Flag, Count, Acc) when Hd =:= Flag              -> drleaux(Lz, Flag, Count + 1, Acc);
-drleaux([Hd|Lz], Flag, Count, Acc) when Hd =/= Flag, Count =:= 1 -> drleaux(Lz, Hd, 1, [Flag]|Acc];
-drleaux([Hd|Lz], Flag, Count, Acc) when Hd =/= Flag, Count =/= 1 -> drleaux(Lz, Hd, 1, [[Count, Flag]|Acc].
+%Direct solution to the run length encoding problem; instead of constructing lists count things
+drleaux([], Flag, 1, Acc)                           -> reverse([Flag|Acc]);
+drleaux([], Flag, Count, Acc)                       -> reverse([[Count, Flag]|Acc]);
+drleaux([Hd|Lz], Flag, Count, Acc) when Hd =:= Flag -> drleaux(Lz, Flag, Count + 1, Acc);
+drleaux([Hd|Lz], Flag, 1, Acc)     when Hd =/= Flag -> drleaux(Lz, Hd, 1, [Flag|Acc]);
+drleaux([Hd|Lz], Flag, Count, Acc)                  -> drleaux(Lz, Hd, 1, [[Count, Flag]|Acc]).
 drler([])      -> [];
-drler([Hd|Lz]) -> drelaux([Hd|Lz], Hd, 0, []).
+drler([Hd|Lz]) -> drleaux([Hd|Lz], Hd, 0, []).
 
 %Returns a list with every element duplicated
 dupaux([])      -> [];
 dupaux([Hd|Lz]) -> [Hd|[Hd|dupe(Lz)]].
-dupe(Lz) -> reverse(dupaux(Lz)).
+dupe(Lz) -> dupaux(Lz).
+
+%Drop every nth character of the list given
+draux(_, _, [], Acc)      -> reverse(Acc);
+draux(N, 1, [Hd|Lz], Acc) -> draux(N, N, Lz, [Hd|Acc]);
+draux(N, M, Lz, Acc)      -> draux(N, M-1, Lz, Acc). 
+dropr(N, Lz) -> draux(N, N, Lz, []).
