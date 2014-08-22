@@ -1,0 +1,12 @@
+#!/usr/bin/env perl
+print("Give me a string.\n");
+$string = <STDIN>;
+print("Give me a number.\n");
+#$number = <STDIN>;
+#$mult = $string x $number;
+print($mult);
+$i = 0;
+while($i <= $number){
+  print($string);
+  ++$i;
+}

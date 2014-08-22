@@ -1,0 +1,7 @@
+#!/usr/bin/env perl
+@lines = <STDIN>;
+@lines = reverse(@lines);
+chomp @lines;
+foreach $line (@lines){
+  print("$line\n");
+}
