@@ -10,7 +10,8 @@ defmodule liszt do
     [Hd | [Hdd | Ls] = Lz
     case Ls == [] do
       :true -> Hd
-      :false -> penlastr([Hdd
+      :false -> penlastr([Hdd | Ls])
+    end
   end
 end
 #No good. This is a problem!
