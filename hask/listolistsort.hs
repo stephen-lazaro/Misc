@@ -1,4 +1,5 @@
 --This sorts a list of lists by list length
+--This could be easily optimized by randomly choosing a pivot at each quicksortList call.
 
 length []    acc = acc
 length hd:lz acc = length lz (acc + 1)
