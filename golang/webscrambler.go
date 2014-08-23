@@ -7,6 +7,24 @@ import (
   "os"
   )
 
+func main() {
+    var url string
+    getURL(&url)
+    page := getPage(url)
+    var contents string
+    readFromPage(&contents)
+    tokenize(contents)
+}
+
+func tokenize(page *string) {
+    
+}
+
+func getURL(storage *string) {
+    fmt.Println("Hey man")
+    fmt.Scanln(storage)
+}
+
 func openPage(pageURL string) *http.Request {
     page, err := http.NewRequest("GET", pageURL, bufio.NewReader())
     if err != nil {
@@ -22,7 +40,7 @@ func getPage(pageURL string) *io.ReadCloser {
     return &content
 }
 
-func readFromPage(destinate *string, request *http.Request) (int, error) {
+func readFromPage(destinate *string, request *io.ReadCloser) (int, error) {
     for {
         inputLine, err := content.ReadLine()
         if err != nil {
