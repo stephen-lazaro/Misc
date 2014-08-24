@@ -46,17 +46,18 @@ func Height(self *NodeLike) int {
     } else {
         var acc []int
         kiddens := (*self).Children()
-        for child, _ := range kiddens {
-            append(acc, 1 + Height(&child)) //Logic wrong
+        for _, child := range kiddens {
+            heightAtChild := Height(&child)
+            acc = append(acc, heightAtChild) //Logic wrong?
         }
         return maxOf(acc)
     }
 }
 
-func Append(self *NodeLike, toBeAdded...Nodelike) {
+func Append(self *NodeLike, toBeAdded...NodeLike) {
     kiddens := (*self).Children() 
-    for node, _ := range toBeAdded {
-        append(kiddens, node)
+    for _, node := range toBeAdded {
+        kiddens = append(kiddens, node)
     }
 }
 
