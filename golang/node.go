@@ -1,11 +1,5 @@
-package main
-
-import (
-  "fmt"
-  "bufio"
-  "net/http"
-  "os"
-  )
+//Node Tools
+package node
 
 //Get's the maximum element of a slice of integers
 func maxOf(lz []int) (maxis int) {
@@ -81,6 +75,51 @@ func (self *HtmlNode) Content() string {
     return self.textcontent
 }
 
+//Binary tree data type
+type BinaryNode struct {
+    children [2]NodeLike
+    content string
+}
+
+//BinaryNode implementation of NodeLike
+func (self *BinaryNode) Children() [2]NodeLike {
+    return self.children
+}
+
+func (self *BinaryNode) Content() string {
+    return self.content
+}
+
+//BinaryNode Methods
+func (self *BinaryNode) Left() *NodeLike {
+    return &self.children[0]
+}
+
+func (self *BinaryNode) Right() *NodeLike {
+    return &self.children[1]
+}
+
+//I know this is terrible looking, but it's straightforward.
+func (self *BinaryNode) Append(side string, nodez *NodeLike) int {
+    if side == "right" {
+        if self.Right() == nil {
+            self.children[0] = *nodez
+            return 0
+        } else {
+            return 1
+        }
+    } else if side == "left" {
+        if self.Left() == nil {
+            self.children[1] = *nodez
+            return 0
+        } else {
+            return 1
+        }
+    } else {
+        return -1
+    }
+}
+
 //EmptyNode shouldn't really do anything
 type EmptyNode struct {
 }
@@ -91,46 +130,4 @@ func (*EmptyNode) Children() []EmptyNode {
 }
 
 func (*EmptyNode) Content() {
-}
-
-func main() {
-    var url string
-    getURL(&url)
-    page := getPage(url)
-    var contents []byte
-    readFromPage(contents, page)
-    pagez := string(contents)
-    makeDOM(&pagez)
-}
-
-func makeDOM(page *string) *HtmlNode {
-    return new(HtmlNode)
-}
-
-func getURL(storage *string) {
-    fmt.Println("Hey man")
-    fmt.Scanln(storage)
-}
-
-func getPage(pageURL string) *bufio.Reader {
-    page, err := http.Get(pageURL)
-    if err != nil {
-        fmt.Println("Failure to get URL")
-        os.Exit(2)
-    }
-    content := bufio.NewReader(page.Body)
-    return content
-}
-
-func readFromPage(destinate []byte, request *bufio.Reader) (int, error) {
-    for {
-        inputLine, err := request.ReadString('\n')
-        if err != nil {
-            fmt.Println("Reading broken")
-            os.Exit(1)
-        }
-        for _, char := range inputLine {
-            destinate = append(destinate, byte(char))
-        }
-    }
 }
