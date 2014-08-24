@@ -3,14 +3,58 @@ package main
 import (
   "fmt"
   "bufio"
-  "http"
+  "net/http"
   "os"
   )
 
-//Tree node data type
-type Node struct {
-    children []Node
-    content string
+//Get's the maximum element of a slice of integers
+func maxOf(lz []int) (maxis int) {
+    maxis = 0
+    for i,_ := range lz {
+        if i > maxis {
+            maxis = i
+        }
+    }
+    return
+}
+
+//NodeLike interface
+type NodeLike interface{
+    Children
+    Content
+}
+
+//NodeLike methods
+func (self *NodeLike) Childless() bool {
+    if (*self).Children == nil {
+        return True
+    } else if len((*self).Children) == 0 {
+        return True
+    } else {
+        return False
+    }
+}
+
+func (self *NodeLike) Width() int {
+    return len((*self).Children())
+}
+
+func (self *NodeLike) Height() int {
+    if (*self).Childless() {
+        return 0
+    } else {
+        var acc []int
+        for child,_ := range (*self).Children() {
+            acc.append(1 + child.Height())
+        }
+        return maxOf(acc)
+    }
+}
+
+func (self *NodeLike) Append(toBeAdded ...*Node) {
+    for node, _ := range toBeAdded {
+        append((*self).Children(), *node)
+    }
 }
 
 //HTML Tree node data type
@@ -20,57 +64,11 @@ type HtmlNode struct {
     tag string
 }
 
-func (self *Node) Children() {
-    return (*self).children
-}
-
-func (self *Node) Childless() bool {
-    if (*self).children == nil {
-        return True
-    } else if (*self).children == {
-        return True
-    } else {
-        return False
-    }
-}
-
-func (self *Node) Content() {
-    return (*self).content
-}
-
-func (self *Node) Width() int {
-    return len((*self).children)
-}
-
-func (self *Node) Height() int {
-    if (*self).Childless() {
-        return 0
-    } else {
-        acc := []int
-        for child,_ := range (*self).Children() {
-            acc.append(1 + child.Height())
-        }
-        return max(acc)
-    }
-}
-
-func (self *Node) Append(toBeAdded ..*Node) {
-    for node, _ := range toBeAdded {
-        append((*self).children, *node)
-    }
-}
-
 func (self *HtmlNode) TagType() string {
     return (*self).tag
 }
 
-//An interface for nodes
-type Node interface {
-    Children()
-    Content() string
-}
-
-//Implementation for Html Nodes
+//Implementation for Html Nodes of NodeLike
 func (self *HtmlNode) Children() {
     return (*self).children
 }
