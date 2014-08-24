@@ -20,40 +20,43 @@ func maxOf(lz []int) (maxis int) {
 
 //NodeLike interface
 type NodeLike interface{
-    Children
-    Content
+    Children() []NodeLike
+    Content() string
 }
 
-//NodeLike methods
-func (self *NodeLike) Childless() bool {
-    if (*self).Children == nil {
-        return True
-    } else if len((*self).Children) == 0 {
-        return True
+//NodeLike functions
+func Childless(self *NodeLike) bool {
+    if (*self).Children() == nil {
+        return true
+    } else if len((*self).Children()) == 0 { //Not the right way to test for empty slice
+        return true
     } else {
-        return False
+        return false
     }
 }
 
-func (self *NodeLike) Width() int {
-    return len((*self).Children())
+func Width(self *NodeLike) int {
+    kiddens := (*self).Children()
+    return len(kiddens)
 }
 
-func (self *NodeLike) Height() int {
-    if (*self).Childless() {
+func Height(self *NodeLike) int {
+    if Childless(self) {
         return 0
     } else {
         var acc []int
-        for child,_ := range (*self).Children() {
-            acc.append(1 + child.Height())
+        kiddens := (*self).Children()
+        for child, _ := range kiddens {
+            append(acc, 1 + Height(&child)) //Logic wrong
         }
         return maxOf(acc)
     }
 }
 
-func (self *NodeLike) Append(toBeAdded ...*Node) {
+func Append(self *NodeLike, toBeAdded...Nodelike) {
+    kiddens := (*self).Children() 
     for node, _ := range toBeAdded {
-        append((*self).Children(), *node)
+        append(kiddens, node)
     }
 }
 
@@ -69,11 +72,11 @@ func (self *HtmlNode) TagType() string {
 }
 
 //Implementation for Html Nodes of NodeLike
-func (self *HtmlNode) Children() {
+func (self *HtmlNode) Children() []HtmlNode {
     return (*self).children
 }
 
-func (self *HtmlNode) Content() {
+func (self *HtmlNode) Content() string {
     return (*self).textcontent
 }
 
@@ -81,10 +84,9 @@ func (self *HtmlNode) Content() {
 type EmptyNode struct {
 }
 
-func (*EmptyNode) Right() {
-}
-
-func (*EmptyNode) Left() {
+func (*EmptyNode) Children() []EmptyNode {
+    var e []EmptyNode
+    return e
 }
 
 func (*EmptyNode) Content() {
@@ -94,13 +96,14 @@ func main() {
     var url string
     getURL(&url)
     page := getPage(url)
-    var contents string
-    readFromPage(&contents)
-    makeDOM(contents)
+    var contents []byte
+    readFromPage(contents, page)
+    pagez := string(contents)
+    makeDOM(&pagez)
 }
 
-func makeDOM(page *string) *Node {
-
+func makeDOM(page *string) *HtmlNode {
+    return new(HtmlNode)
 }
 
 func getURL(storage *string) {
@@ -108,30 +111,25 @@ func getURL(storage *string) {
     fmt.Scanln(storage)
 }
 
-func openPage(pageURL string) *http.Request {
-    page, err := http.NewRequest("GET", pageURL, bufio.NewReader())
+func getPage(pageURL string) *bufio.Reader {
+    page, err := http.Get(pageURL)
     if err != nil {
-        fmt.Println("Oh shit no page breh")
-        os.Exit(-1)
-        }
-    return &page
-}
-
-func getPage(pageURL string) *io.ReadCloser {
-    page := http.Get(pageURL)
+        fmt.Println("Failure to get URL")
+        os.Exit(2)
+    }
     content := bufio.NewReader(page.Body)
-    return &content
+    return content
 }
 
-func readFromPage(destinate *string, request *io.ReadCloser) (int, error) {
+func readFromPage(destinate []byte, request *bufio.Reader) (int, error) {
     for {
-        inputLine, err := content.ReadLine()
+        inputLine, err := request.ReadString('\n')
         if err != nil {
             fmt.Println("Reading broken")
             os.Exit(1)
         }
         for _, char := range inputLine {
-            (*desinate) += char
+            destinate = append(destinate, byte(char))
         }
     }
 }
