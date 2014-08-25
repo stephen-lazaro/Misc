@@ -1,22 +1,44 @@
 -module(coroutines).
--export([getNaturals/0, receiveNaturals/1, naturals/1]).
+-export([getNaturals/1, receiveNaturals/2, naturals/2, getFibs/1, receiveFibs/2, fibs/4]).
 
-getNaturals() ->
-  Pid = spawn(coroutines, naturals, [53]),
+getNaturals(End) ->
+  Pid = spawn(coroutines, naturals, [0, End]),
   Pid ! {self(), start},
-  receiveNaturals(Pid),
+  receiveNaturals(Pid, End),
   Pid ! stop.
 
-receiveNaturals(Spid) ->
+receiveNaturals(Spid, M) ->
   receive
-    {_, 0}    -> io:format("~w~n", [0]), true;
-    {Spid, N} -> io:format("~w~n", [N]), Spid ! next, receiveNaturals(Spid)
+    {_, M}    -> io:format("~w~n", [M]), true;
+    {Spid, N} -> io:format("~w~n", [N]), Spid ! {self(), next}, receiveNaturals(Spid, M)
   end.
 
-naturals(N) ->
+naturals(Current, N) ->
   receive
-    {From, start}-> From ! {self(), N}, naturals(N - 1);
-    {From, 0}    -> From ! {self(), 0};
-    {From, next} -> From ! {self(), N}, naturals(N - 1);
+    {From, start}-> From ! {self(), Current}, naturals(Current + 1, N);
+    {From, next} -> From ! {self(), Current}, naturals(Current + 1, N);
     stop         -> true
+  end.
+
+getFibs(EndTerm) ->
+  Pid = spawn(coroutines, fibs, [0, 1, EndTerm, 0]),
+  Pid ! {self(), start},
+  receiveFibs(Pid, EndTerm),
+  Pid ! stop.
+
+receiveFibs(Pid, EndTerm) ->
+  receive
+    {_, Final, EndTerm} -> io:format("~w~n", [Final]), true;
+    {Pid, Current, _} -> io:format("~w~n", [Current]),
+                               Pid ! {self(), next}, 
+                               receiveFibs(Pid, EndTerm)
+  end.
+
+fibs(Previous, Current, EndTerm, TermNumber) ->
+  receive
+    {From, start} -> From ! {self(), Previous, TermNumber},
+                     fibs(Current, Previous + Current, EndTerm, TermNumber + 1);
+    {From, next}  -> From ! {self(), Previous, TermNumber},
+                     fibs(Current, Previous + Current, EndTerm, TermNumber + 1);
+    stop -> true
   end.
