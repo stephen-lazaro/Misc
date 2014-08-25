@@ -89,7 +89,7 @@ class CallNumberSheet():
 
   #Takes a callnumber sheet and returns a sorted list of callnumbers
   @classmethod
-  def quicksort(cls, sheet):
+  def sort(cls, sheet):
     return quicksort(sheet.callnumbers)
 
 
@@ -98,6 +98,6 @@ def testSheet():
   cnb = CallNumber(["B", 3012, "F", 45])
   sheet = CallNumberSheet(cna, cnb)
   print(sheet)
-  print(CallNumberSheet.quicksort(sheet))
+  print(CallNumberSheet.sort(sheet))
 
 testSheet()
