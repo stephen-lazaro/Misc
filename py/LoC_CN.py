@@ -65,10 +65,10 @@ test()
 def quicksort(lz):
   if lz == []:
     return []
-  hd = lz[0]
-  a = quicksort([a for a in lz if a < hd])
-  b = quicksort([b for b in lz if b >= hd])
-  return a + [hd] + b
+  pivot = lz[0]
+  a = quicksort([a for a in lz[1:] if a < pivot])
+  b = quicksort([b for b in lz[1:] if b >= pivot])
+  return a + [pivot] + b
 
 class CallNumberSheet():
   #This will be a classmethod that returns a CallNumberSheet given a well formatted file of searches.
