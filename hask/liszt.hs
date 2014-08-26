@@ -1,3 +1,5 @@
+module liszt where
+
 --Returns the last element of a list
 lastr [] = False
 lastr (hd:[]) = hd
@@ -17,6 +19,11 @@ at n (hd:lz) = at (n - 1) lz
 --Returns the number of elements in a list
 laux [] acc    = acc
 laux (hd:lz) acc = laux lz (acc + 1)
-length ls = laux ls 0
+len ls = laux ls 0
+
+--Reverses a list
+reversus [] acc = acc
+reversus (hd:lz) acc = reversus lz (acc ++ [hd])
+reversus lz = reversus lz []
 
 --
