@@ -28,6 +28,6 @@ len ls = laux ls 0
 
 --Reverses a list
 reversus :: [a] -> [a]
-reversus (hd:lz) = let aux [] acc = acc
-  	                   aux (f:rst) acc = aux rst (acc ++ [f])
-  	                in aux (hd:lz) []
+reversus [] = [] 
+reversus (hd:lz) = let rev (f:rst) acc = rev rst (acc ++ [f])
+  	                in rev (hd:lz) []
