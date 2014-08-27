@@ -40,4 +40,9 @@ palind lz = paux lz (reverse lz) True
     	  paux _ [] acc = False;
           paux (hd : lz) (f:other) acc = paux lz other (hd == f)
 
---
+data Dlist a = One a | Many [a]
+
+flattenr lz = let aux =
+  				aux ((One hd) : lst)  acc = aux lst hd:acc;
+  				aux ((Many hd) : lst) acc = aux lst ((aux hd) ++ acc)
+  			  in aux lz []
