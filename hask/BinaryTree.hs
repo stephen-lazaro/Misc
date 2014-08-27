@@ -30,4 +30,11 @@ cbal_tree n
     where evenSubtree = cbal_tree (quot n 2)
           oddSubtree  = cbal_tree ((quot n 2) + 1)
 
+is_balanced :: BinaryNode a -> Boolean
+is_balanced (BinaryNode a b _) = sideDifference <= 1
+    where sideDifference = abz ((nodez a) - (nodez b))
+         where abz n
+             | n < 0      = -n
+             | otherwise  = n 
+
 --Let's check if a tree is symmetric
