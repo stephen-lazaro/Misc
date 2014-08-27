@@ -28,6 +28,16 @@ len ls = laux ls 0
 
 --Reverses a list
 reversus :: [a] -> [a]
-reversus [] = [] 
-reversus (hd:lz) = let rev (f:rst) acc = rev rst (acc ++ [f])
+reversus (hd:lz) = let rev (f:rst) acc = rev rst (acc ++ [f]);
+					   rev [] acc = acc
   	                in rev (hd:lz) []
+
+--Palindrome test
+palind :: [Int] -> Bool
+palind lz = paux lz (reverse lz) True
+    where paux [] [] acc = acc;
+    	  paux [] _ acc = False;
+    	  paux _ [] acc = False;
+          paux (hd : lz) (f:other) acc = paux lz other (hd == f)
+
+--
