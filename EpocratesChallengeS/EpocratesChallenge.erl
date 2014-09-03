@@ -1,0 +1,2 @@
+-module(epocrates).
+-export([go/0]).
