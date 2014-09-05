@@ -49,4 +49,3 @@ maxOf lz = maxis lz 0 where
 height :: Tree a -> Integer
 height Empty = 0
 height (Node _ left right) = 1 + maxOf([height left, height right])
-
