@@ -1,5 +1,5 @@
 #General Utilities
-debug = False
+debug = True
 
 #Just what it says it is
 def quicksort(word):
@@ -30,6 +30,12 @@ def choose(a, b):
 		return 1
 	else:
 		return factorial(a) // factorial(b) // factorial(a - b)
+
+if debug == True:
+	print(choose(8, 5))
+	print(choose(6, 4))
+	print(choose(3, 3))
+	print(choose(3, 4))
 
 #Prime number generator!
 def Eratosthesis(limit):
@@ -117,9 +123,14 @@ class Factorad:
 	def __str__(self):
 		return self.data.__str__()
 
+if debug == True:
+	#do some tests here
+	pass
+
 #Class that produces combinadic numbers!
 class Combinad:
 	def __init__(self, intg, order):
+		self.decimal = intg
 		acc = []
 		while order >= 0:
 			i = 1
@@ -132,11 +143,17 @@ class Combinad:
 					break
 				i += 1
 		self.data = acc
-		self.decimal = intg
 
+	def combinations(self):
+		return self.data
+
+	# I AM NOT 100% ON THIS! NOTICE THE OFF BY ONE HACK
 	@classmethod
-	def fromCombinations(lz, order):
-		return Combinad(sum(lz), order)
+	def fromCombinations(cls, lz, order):
+		acc = 0
+		for idx,val in enumerate(lz):
+			acc += choose(val, order - idx)
+		return Combinad(acc - 1, order)
 
 	def position(self):
 		return self.decimal
@@ -145,7 +162,7 @@ class Combinad:
 		return self.data.__str__()
 
 if debug == True:
-	print(choose(8, 5))
-	print(choose(6, 4))
-	print(choose(3, 3))
 	print(Combinad(72, 5))
+	print(Combinad(72, 5).position())
+	print(Combinad(72, 5).combinations())
+	print(Combinad.fromCombinations(Combinad(72,5).combinations(), 5))

@@ -1,3 +1,4 @@
+debug = True
 
 def factorial(a):
 	if a == 0:
