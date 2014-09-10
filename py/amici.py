@@ -1,4 +1,6 @@
 import math
+#Taking too long to count divisors. Would be nice to speed that up
+#Same basic problem with Triangle numbers really.
 
 def Eratosthesis(limit):
 	a = [True for i in range(2, limit)]
@@ -37,3 +39,26 @@ def divisorz(intg, primes):
 					acc.append(prime ** count)
 				acc.append(med)
 	return noReps(acc)
+
+def divSum(intg, primes):
+	return sum(divisorz(intg, primes))
+
+def isAmicable(intg, primes):
+	v = divSum(intg, primes)
+	if divSum(v, primes) == intg:
+		return v
+	return False
+
+def getAmici():
+	acc = 0
+	primez = Eratosthesis(100001)
+	print("Primes up!")
+	for poss in range(100000):
+		qu = isAmicable(poss, primez)
+		if qu == False:
+			pass
+		else:
+			acc += poss
+	return acc
+
+print(getAmici())
