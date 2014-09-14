@@ -1,0 +1,6 @@
+def pa(f, x):
+	def g(y):
+		return f(x, y)
+	return g
+
+print(pa(lambda x y: x + y, 5)

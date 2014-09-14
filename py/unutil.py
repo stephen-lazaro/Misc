@@ -15,7 +15,7 @@ def noReps(word):
 	hd = word[0]
 	return noReps([i for i in word[1:] if i < hd]) + [hd] + noReps([j for j in word[1:] if j > hd])
 
-#Memoization free, naive factorail finder
+#Memoization free, naive factorial finder
 def factorial(a):
 	if a == 0:
 		return 1
@@ -48,6 +48,28 @@ def Eratosthesis(limit):
 				except IndexError:
 					pass
 	return a
+
+#Getting divisors given a list of primes
+#This is not the most efficient way to count said divisors
+def makeFactors(intg, primes):
+	acc = [1, intg]
+	for idx,val in enumerate(primes):
+		if idx + 2 == intg:
+			pass
+		elif val == True:
+			prime = idx + 2
+			med = intg
+			count = 0
+			while med % prime == 0:
+				count += 1
+				if med == 1:
+					break
+				med //= prime
+				if prime ** count != intg:
+					acc.append(prime ** count)
+				acc.append(med)
+	return noReps(acc)
+#Needs some tests
 
 
 #Class that produces factoradic numbers
@@ -166,3 +188,5 @@ if debug == True:
 	print(Combinad(72, 5).position())
 	print(Combinad(72, 5).combinations())
 	print(Combinad.fromCombinations(Combinad(72,5).combinations(), 5))
+	print(Combinad(19, 5).combinations())
+	print(Combinad.fromCombinations(Combinad(19,5).combinations(), 5))
