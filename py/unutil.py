@@ -39,15 +39,19 @@ if debug == True:
 
 #Prime number generator!
 def Eratosthesis(limit):
-	a = [True for i in range(2, limit)]
-	for i in range(2, math.ceil(math.sqrt(limit))):
-		if a[i - 2] == True:
-			for j in [i**2 + n*i for n in range(0,limit) if (i**2 + n*i) < limit]:
-				try:
-					a[j - 2] = False
-				except IndexError:
-					pass
-	return a
+	numbers = [x for x in range(2, limit+1)]
+	p = 2
+	j = 0
+	done = False
+	while not done:
+		for i, n in enumerate(numbers):
+			if n % p == 0 and n != p:
+				numbers.pop(i)
+		j += 1
+		p = numbers[j]
+		if p**2 > n:
+			done = True
+	return numbers
 
 #Getting divisors given a list of primes
 #This is not the most efficient way to count said divisors
