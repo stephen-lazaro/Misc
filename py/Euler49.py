@@ -2,6 +2,7 @@ import itertools as it
 
 debuga = False
 debugb = False
+debugc = True
 debugmain = False
 
 def Eratosthesis(limit):
@@ -77,7 +78,7 @@ def noReps(lz):
 
 def getAnswers():
 	acc = []
-	primes = Eratosthesis(75000)
+	primes = Eratosthesis(100000)
 	possSpace = range(1000, 10000)
 	for poss in possSpace:
 		if poss in primes:
@@ -90,9 +91,28 @@ def getAnswers():
 			acc.append(med)
 	return [noReps(x) for x in acc]
 
+def bestSelect(lz):
+	acc = []
+	for idx,val in enumerate(lz):
+		for idy,valy in enumerate(lz[:idx] + lz[idx + 1:]):
+			for idz,valz in enumerate(lz[:idy] + lz[idy + 1:]):
+				if val < valy and valy < valz and valy - val == valz - valy:
+					acc.append(int(str(val) + str(valy) + str(valz)))
+	if len(acc) > 0:
+		acc = max(acc)
+	else:
+		acc = 0
+	return acc
+
+if debugc == True:
+	print(bestSelect([1013, 1031, 1103, 1301, 3011]))
+	print(bestSelect([1249, 1429, 4129, 4219, 9241, 9421]))
+
 def makeAnswer(lz):
 	acc = it.filterfalse(lambda x: len(x) < 3, lz)
 	acc = [x for x in map(noReps, acc)]
+	acc = [x for x in map(bestSelect, acc)]
+	acc = max(acc)
 	return acc
 
 if debugmain == True:
