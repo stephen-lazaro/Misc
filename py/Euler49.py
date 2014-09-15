@@ -1,5 +1,8 @@
+import itertools as it
+
 debuga = False
 debugb = False
+debugmain = False
 
 def Eratosthesis(limit):
 	numbers = [x for x in range(2, limit+1)]
@@ -16,11 +19,12 @@ def Eratosthesis(limit):
 			done = True
 	return numbers
 
+#This one is fucking everything up!
 def explode(num):
 	acc = []
 	med = str(num)
 	for character in med:
-		acc.append(med)
+		acc.append(character)
 	return acc
 
 def permutations(lz):
@@ -66,19 +70,36 @@ if debugb == True:
 	print(numbersOf(permutations([5,6,7])))
 	print(numbersOf(permutations([8,5,6,7])))
 
+def noReps(lz):
+	if len(lz) == 0:
+		return []
+	return noReps([x for x in lz[1:] if x < lz[0]]) + [lz[0]] + noReps([y for y in lz[1:] if y > lz[0]])
 
-def getAnswer():
+def getAnswers():
+	acc = []
 	primes = Eratosthesis(75000)
 	possSpace = range(1000, 10000)
 	for poss in possSpace:
 		if poss in primes:
-			acc = [poss]
+			med = [poss]
 			permutes = numbersOf(permutations(explode(poss)))
 			for permute in permutes:
-				if int(permute) in primes:
-					acc.append(permute)
-			if len(acc) == 2:
-				return acc
+				pre = int(permute)
+				if pre in primes and pre >= 1000:
+					med.append(pre)
+			acc.append(med)
+	return [noReps(x) for x in acc]
 
+def makeAnswer(lz):
+	acc = it.filterfalse(lambda x: len(x) < 3, lz)
+	acc = [x for x in map(noReps, acc)]
+	return acc
 
-print(1487 in Eratosthesis(75000))
+if debugmain == True:
+	v = numbersOf(permutations(explode(1487)))
+	primes = Eratosthesis(75000)
+	print(v)
+	for i in v:
+		print(str(i) +" : " + str(int(i) in primes))
+
+print(makeAnswer(getAnswers()))
