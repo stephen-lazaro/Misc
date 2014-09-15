@@ -2,7 +2,7 @@ import itertools as it
 
 debuga = False
 debugb = False
-debugc = True
+debugc = False
 debugmain = False
 
 def Eratosthesis(limit):
@@ -20,7 +20,6 @@ def Eratosthesis(limit):
 			done = True
 	return numbers
 
-#This one is fucking everything up!
 def explode(num):
 	acc = []
 	med = str(num)
@@ -65,6 +64,7 @@ def numbersOf(lz):
 			med = str(item)
 		acc.append(med)
 	return acc
+
 if debugb == True:
 	print(numbersOf(permutations([5])))
 	print(numbersOf(permutations([5,6])))
@@ -78,7 +78,7 @@ def noReps(lz):
 
 def getAnswers():
 	acc = []
-	primes = Eratosthesis(100000)
+	primes = Eratosthesis(10000)
 	possSpace = range(1000, 10000)
 	for poss in possSpace:
 		if poss in primes:
