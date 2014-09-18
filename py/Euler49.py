@@ -105,6 +105,7 @@ def bestSelect(lz):
 	return acc
 
 if debugc == True:
+	#These should all check out to 0
 	print(bestSelect([1013, 1031, 1103, 1301, 3011]))
 	print(bestSelect([1249, 1429, 4129, 4219, 9241, 9421]))
 
