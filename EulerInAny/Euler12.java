@@ -1,4 +1,8 @@
 //Euler12
+//Finis, compiles, runs and gives right answer
+//The weird part was the Triangular Number maker oddly
+//One should review this way of counting divisors in detail
+
 import java.lang.Math;
 import java.util.*;
 
