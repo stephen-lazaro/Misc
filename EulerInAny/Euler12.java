@@ -65,7 +65,7 @@ public class Euler12 {
 	private static class Triangular {
 		int data;
 		public Triangular(int n) {
-			this.data = (n * n+1) / 2;
+			this.data = (n * (n+1)) / 2;
 		}
 		public int get() {
 			return this.data;
@@ -75,10 +75,10 @@ public class Euler12 {
 	int data;
 	public Euler12() {
 		Eratosthenes test = new Eratosthenes(75000);
-		for (int i = 0; i < 10000; i++) {
+		for (int i = 0; i < 100000; i++) {
 			Triangular item = new Triangular(i);
 			Divisors divs = new Divisors(item.get(), test);
-			if (divs.getCount() > 5) {
+			if (divs.getCount() > 500) {
 				this.data = item.get();
 				return;
 			}
@@ -89,13 +89,10 @@ public class Euler12 {
 	}
 	public static void main(String[] args) {
 		if (debuga == true) {
-			Eratosthenes test = new Eratosthenes(75000);
-			Divisors six = new Divisors(6, test);
-			System.out.format("%d\n", six.getCount());
-			Divisors twentyeight = new Divisors(28, test);
-			System.out.format("%d\n", twentyeight.getCount());
-			Divisors answer = new Divisors(76576500, test);
-			System.out.format("%d\n", answer.getCount());
+			for(int i = 0; i < 8; i++) {
+				Triangular item = new Triangular(i);
+				System.out.format("%d\n", item.get());
+			}
 		} else {
 			Euler12 answer = new Euler12();
 			System.out.format("%d", answer.get());
