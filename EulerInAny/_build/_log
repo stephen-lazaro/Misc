@@ -1,0 +1,12 @@
+### Starting build.
+# Target: Euler4.ml.depends, tags: { annot, bin_annot, debug, extension:ml, file:Euler4.ml, ocaml, ocamldep, package(bin_prot.syntax), package(core), package(sexplib.syntax,comparelib.syntax,fieldslib.syntax,variantslib.syntax), quiet, short_paths, syntax(camlp4o), thread }
+ocamlfind ocamldep -syntax camlp4o -package bin_prot.syntax -package sexplib.syntax,comparelib.syntax,fieldslib.syntax,variantslib.syntax -package core -modules Euler4.ml > Euler4.ml.depends
++ ocamlfind ocamldep -syntax camlp4o -package bin_prot.syntax -package sexplib.syntax,comparelib.syntax,fieldslib.syntax,variantslib.syntax -package core -modules Euler4.ml > Euler4.ml.depends
+File "Euler4.ml", line 3, characters 9-10:
+Parse error: [module_longident] expected after "." (in [module_longident])
+Preprocessing error on file Euler4.ml
+Error while running external preprocessor
+Command line: camlp4 '-I' '/usr/local/lib/ocaml/camlp4' '-I' '/Users/s42/.opam/system/lib/type_conv' '-I' '/usr/local/lib/ocaml' '-I' '/usr/local/lib/ocaml' '-I' '/Users/s42/.opam/system/lib/bin_prot' '-I' '/Users/s42/.opam/system/lib/bin_prot' '-I' '/Users/s42/.opam/system/lib/sexplib' '-I' '/Users/s42/.opam/system/lib/sexplib' '-I' '/Users/s42/.opam/system/lib/comparelib' '-I' '/Users/s42/.opam/system/lib/comparelib' '-I' '/Users/s42/.opam/system/lib/fieldslib' '-I' '/Users/s42/.opam/system/lib/fieldslib' '-I' '/Users/s42/.opam/system/lib/variantslib' '-I' '/Users/s42/.opam/system/lib/variantslib' '-parser' 'o' '-parser' 'op' '-printer' 'p' 'pa_type_conv.cma' 'unix.cma' 'bigarray.cma' 'bin_prot.cma' 'pa_bin_prot.cma' 'sexplib.cma' 'pa_sexp_conv.cma' 'comparelib.cma' 'pa_compare.cma' 'fieldslib.cma' 'pa_fields_conv.cma' 'variantslib.cma' 'pa_variants_conv.cma'  'Euler4.ml' > /var/folders/vf/58__vwrj5219t3g_5bt7fk880000gn/T/ocamlpp6defce
+
+Command exited with code 2.
+# Compilation unsuccessful.
