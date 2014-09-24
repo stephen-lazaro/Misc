@@ -1,1 +1,4 @@
 *.class
+EulerInAny/_build/*
+EulerInAny/_build/_digest
+EulerInAny/_build/_log
