@@ -1,7 +1,7 @@
 //Linked List
 //Appears to work perfectly.
 public class LinkedList<E> {
-	private static boolean debuga = false;
+	private static boolean debuga = true;
 	private Node<E> head;
 	private Node<E> tail;
 	private int size;
@@ -126,6 +126,10 @@ public class LinkedList<E> {
 			System.out.format("Rear Pop: %d\n", w);
 			System.out.format("Head: %d\n", stuff.getHead());
 			System.out.format("Tail: %d\n", stuff.getTail());
+			LinkedList<Integer> l = new LinkedList<Integer>(5, 7);
+			System.out.format("Head: %d\n", l.getHead());
+			System.out.format("Tail: %d\n", l.getTail());
+			System.out.format("Size: %d\n", l.getSize());
 		}
 	}
 }
