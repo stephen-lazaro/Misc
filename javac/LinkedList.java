@@ -38,6 +38,8 @@ public class LinkedList<E> {
 		this.tail = new Node<E>(tail);
 		this.size = 2;
 	}
+	// // Is worst case linear in time because of Node children
+	// // Converting a bunch of node linkages is not rec'd
 	public LinkedList(Node<E> stuff) {
 		this.head = stuff;
 		Node<E> n;
@@ -85,6 +87,7 @@ public class LinkedList<E> {
 		this.size--;
 		return temp.getContent();
 	}
+	// // Is linear in time because of tail updates
 	public E removeEnd() {
 		Node<E> temp = this.tail;
 		Node<E> n = this.head.next;
