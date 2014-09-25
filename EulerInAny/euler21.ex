@@ -1,4 +1,8 @@
 defmodule Euler21 do
+	defp divisors(1) do
+		[1]
+	end
+
 	defp divisors(x)  do
 		for n <- 1..x-1, rem(x, n) == 0, do: n
 	end
