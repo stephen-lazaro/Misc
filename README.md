@@ -8,4 +8,6 @@ Python and Haskell shares will equalize given time. Occasionally, because despit
 this discrepancy.
 
 Mostly, I write in Python, then Java, then Scala, then Haskell, then Erlang, then Elixir, then OCaml, then (hopefully)
-F#; these are my languages. If you have any questions, shoot me an email at stephen.lazaro@gmail.com.
+F#; these are my languages. If you have any questions, shoot me an email at stephen.lazaro@gmail.com. It should be understood that
+I make an effort to rewrite algorithms in multiple languages in accordance with their idioms. I want to learn how to program
+not how to program x language of choice.
