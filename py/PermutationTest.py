@@ -3,6 +3,7 @@ import itertools as it
 debug = True
 
 class PermutationsTest:
+	#this one is bad, more properly uses a hash
 	def __init__(self, a, b):
 		self.aset = set(a)
 		self.bset = set(b)
