@@ -1,3 +1,9 @@
+//Finis. We have overflow with much higher test limit.
+//Most of the issues were in:
+//(i) properly calculating Pentagonal numbers
+//(ii) properly testing for pentagonal numbers
+//(iii) getting the testing parameters correct
+//The algorithm itself is straight forward, essentially brute force.
 public class Euler44 {
 	static int testLimit = 10000;
 	int value;
@@ -6,7 +12,7 @@ public class Euler44 {
 		int data;
 
 		public Pentagonal(int n) {
-			this.data = (n*(3*n - 1)) / 2;
+			this.data = (3*n*n - n) / 2;
 		}
 		public static boolean is(int n) {
 			if (((int) Math.sqrt(24*n + 1) * (int) Math.sqrt(24*n + 1)) == 24*n + 1) {
@@ -23,10 +29,10 @@ public class Euler44 {
 		}
 	}
 	public Euler44() {
-		int min = 100000;
+		int min = 100000000;
 		Pentagonal beingTestedOut;
 		Pentagonal beingTestedIn;
-		for (int i = 0; i < testLimit; i++) {
+		for (int i = 1; i < testLimit; i++) {
 			beingTestedOut = new Pentagonal(i);
 			for (int j = i + 1; j < testLimit; j++) {
 				beingTestedIn = new Pentagonal(j);
@@ -45,15 +51,7 @@ public class Euler44 {
 		return this.value;
 	}
 	public static void main(String[] args) {
-		Pentagonal z;
-		for (int i = 0; i < testLimit; i++) {
-			z = new Pentagonal(i);
-			if (Pentagonal.is(i)) {
-				System.out.format("%d\n", z.getData());
-				System.out.format("%b\n", Pentagonal.is(z.getData()));
-			}
-		}
 		Euler44 answer = new Euler44();
-		System.out.format("%d", answer.get());
+		System.out.format("%d\n", answer.get());
 	}
 }
