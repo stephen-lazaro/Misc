@@ -5,3 +5,4 @@ EulerInAny/_build/_log
 *.hi
 *.o
 *.beam
+*.txt

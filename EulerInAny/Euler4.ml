@@ -35,3 +35,5 @@ let results lza lzb =
 	in aux (Core.list.zip (lza, lzb)) []
 
 let answer = List.max (results tests testSpace)
+
+let main = 
