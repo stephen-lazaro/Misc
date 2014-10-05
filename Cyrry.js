@@ -14,7 +14,7 @@ function curry(f) {
 }
 
 function curry(f, arguments) {
-	for (var arg in arguments) {
+	for (var arg of arguments) {
 
 	}
 }
