@@ -16,7 +16,6 @@ public class WhiteSpacerIP {
 				this.data[i + 1] = '2';
 				this.data[i + 2] = '0';
 				i = i + 2;
-				System.out.println(new String(this.data));
 			}
 		}
 	}

@@ -6,3 +6,4 @@ EulerInAny/_build/_log
 *.o
 *.beam
 *.txt
+*.out
