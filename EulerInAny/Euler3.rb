@@ -1,16 +1,19 @@
 #Euler3.rb
 #Bueno!!
 class Euler3
+	#This implementation is a little wasteful. 
+	#There should be a faster way
+	#It's, afterall, much slower than my python
 	def eratosthenes(n)
 		primes = (2...n).to_a
 		primes.each { |y|
-			for x in (0...n) do
-				if y*y >= n
-					break
-				end
-				primes.delete(y*y + y*x)
-			end
-	}
+			break if y*y >= n
+			(0...n).each {|x|
+				t = y*y + y*x
+				break if t >= n
+				primes.delete(t)
+			}
+		}
 		primes
 	end
 	def initialize(n)
