@@ -1,9 +1,6 @@
 #Euler3.rb
 #Bueno!!
 class Euler3
-	#This implementation is a little wasteful. 
-	#There should be a faster way
-	#It's, afterall, much slower than my python
 	def eratosthenes(n)
 		primes = (2...n).to_a
 		primes.each { |y|
