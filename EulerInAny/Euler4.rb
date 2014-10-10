@@ -1,5 +1,5 @@
 #Euler4.rb
-
+#Yep, good.
 class Euler4
 	def is_palindrome(n)
 		digits = n.to_s.split("")
