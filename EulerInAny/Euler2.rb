@@ -9,9 +9,16 @@ class Euler2
 			false
 		end
 	end
+	def is_fib(n)
+		if is_square(5*n*n + 4) or is_square(5*n*n - 4)
+			true
+		else
+			false
+		end
+	end
 	def initialize()
 		@answer = 0
-		(1...4_000_000).each {|x| @answer += x if x % 2 == 0 && is_square(5*x*x + 4) or is_square(5*x*x - 4) }
+		(1...4_000_000).each {|x| @answer += x if x % 2 == 0 && is_fib(x)}
 	end
 	def to_s()
 		@answer.to_s
