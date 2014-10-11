@@ -1,5 +1,5 @@
 module PutJSON (
-	renderJSON) where
+	putJSON) where
 
 import SimpleJSON
 import Data.List
@@ -18,3 +18,6 @@ renderJSON (JObj obj) = "{" ++ values obj ++ "}"
     where values [] = ""
           values lz = Data.List.intercalate ", " $ map renderPair lz
               where renderPair (key, value) = key ++ " : " ++ renderJSON value
+
+putJSON :: JValue -> IO ()
+putJSON j = print $ renderJSON j

@@ -5,4 +5,4 @@ module Main (
 import SimpleJSON
 import PutJSON
 
-main = print $ renderJSON $ JObj [("Foo", JInt 56789), ("Bar", JBool True)]
+main = putJSON $ JObj [("Foo", JInt 56789), ("Bar", JBool True)]
