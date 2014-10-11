@@ -3,5 +3,6 @@ module Main (
 	) where
 
 import SimpleJSON
+import PutJSON
 
-main = print $ JObj [("Foo", JInt 56789), ("Bar", JBool True)]
+main = print $ renderJSON $ JObj [("Foo", JInt 56789), ("Bar", JBool True)]
