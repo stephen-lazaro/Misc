@@ -57,7 +57,7 @@ isMod5(5)
 
 func Euler1() -> Int {
     var answer = 0
-    for number in 1...1000 {
+    for number in 1..<1000 {
         if isMod3(number) || isMod5(number) {
             answer += number
         }
@@ -66,3 +66,10 @@ func Euler1() -> Int {
 }
 Euler1()
 
+//Euler2
+func isSquare(x: Int) -> Bool {
+    
+}
+func isFib(x: Int) -> Bool {
+    
+}
