@@ -1,4 +1,8 @@
-// Playground - noun: a place where people can play
+import UIKit
+
+let doFirst = false
+let doSecond = false
+let doThird = false
 
 infix operator >> {
 associativity left precedence 140
@@ -64,12 +68,37 @@ func Euler1() -> Int {
     }
     return answer
 }
-Euler1()
+if doFirst == true {
+    Euler1()
+}
+
 
 //Euler2
-func isSquare(x: Int) -> Bool {
-    
+func nextFib(x: Int, y: Int) -> (Int, Int)  {
+    return (y , x + y)
 }
-func isFib(x: Int) -> Bool {
-    
+
+func Euler2() -> Int {
+    var answer = 0
+    var a = 0, b = 1, c: (Int, Int)
+    while b < 4_000_000 {
+        c = nextFib(a, b)
+        a = c.0
+        b = c.1
+        answer += b
+    }
+    return answer
 }
+
+if doSecond == true {
+    Euler2()
+}
+
+//Euler3
+func Eratosthenes(n: Int) {
+    var poss: Array<Int> = new Array<Int>
+    for i in 1...Int(sqrt(Double(n))) {
+        poss.append(true)
+    }
+}
+
