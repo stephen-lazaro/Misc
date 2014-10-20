@@ -95,10 +95,21 @@ if doSecond == true {
 }
 
 //Euler3
-func Eratosthenes(n: Int) {
-    var poss: Array<Int> = new Array<Int>
-    for i in 1...Int(sqrt(Double(n))) {
+func Eratosthenes(n: Int) -> Array<Bool> {
+    var poss: =[true]
+    for i in 2...Int(sqrt(Double(n))) {
         poss.append(true)
     }
+    for idx in poss {
+        if poss[idx] == true {
+            for m in 2...n {
+                if idx*idx + m*idx > n {
+                  break
+                }
+                poss[idx*idx + m*idx] = false
+           }
+        }
+    }
+    return poss
 }
 
