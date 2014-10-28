@@ -1,9 +1,9 @@
 fn is_mod3(x: int) -> bool {
-	if x % 3i == 0i { true } else { false }
+	if x % 3i == 0i { true } else { false };
 }
 
 fn is_mod5(y: int) -> bool {
-	if y % 5i == 0i { true } else { false }
+	if y % 5i == 0i { true } else { false };
 }
 
 fn main() {
