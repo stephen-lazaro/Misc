@@ -1,6 +1,7 @@
 import java.util.Arrays;
 import java.util.ArrayList;
 //Note firstly that b MUST be prime, since p(0) = b is prime.
+//This doesn't yet return anything, I think the breaking conditions in the get() are bad
 public class Euler27 {
     int answer;
     private static class Eratosthenes {
