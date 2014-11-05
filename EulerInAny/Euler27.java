@@ -37,18 +37,19 @@ public class Euler27 {
             acoeff = acoeff;
             bcoeff = bcoeff;
         }
-        public int get(int n) { 
+        public int get(int n) {
             return n*n + acoeff*n + bcoeff;
         }
         public int coeffProd() {
             return acoeff * bcoeff;
         }
+        //numPrimes is broken!                                                                                      
         public int numPrimes(Eratosthenes primetest) {
             boolean test = true;
             int acc = 0;
             while (test) {
                 test = primetest.is(this.get(acc));
-		if (test) {
+                if (test) {
                     acc += 1;
                 }
             }
@@ -59,8 +60,8 @@ public class Euler27 {
         int[] acoeffs = new int[1999];
         int acc = 0;
         for (int j = 0; j < acoeffs.length; j++) {
-            acoeffs[j] = j - 999; 
-        } 
+            acoeffs[j] = j - 999;
+        }
         for (int prime : primetest.primes) {
             if (prime > 1000) break;
             for (int j = 0; j < acoeffs.length; j++) {
@@ -72,9 +73,11 @@ public class Euler27 {
     }
     public static void main(String[] args) {
         Eratosthenes primeTest = new Eratosthenes(50000);
-        //System.out.format("5 is prime: %b", primeTest.is(5));
-        //System.out.format("6 is prime: %b", primeTest.is(6));
-        Euler27 answer = new Euler27();
-        System.out.format("The answer is %d", answer.get(primeTest));
+        //System.out.format("5 is prime: %b", primeTest.is(5));                                                     
+        //System.out.format("6 is prime: %b", primeTest.is(6));                                                     
+        Quadratic eulerian = new Quadratic(1, 41);
+        System.out.format("40 = %d", eulerian.numPrimes(primeTest));
+        //Euler27 answer = new Euler27();                                                                           
+        //System.out.format("The answer is %d", answer.get(primeTest));                                             
     }
 }
