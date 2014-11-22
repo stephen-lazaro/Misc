@@ -96,7 +96,7 @@ if doSecond == true {
 
 //Euler3
 func Eratosthenes(n: Int) -> Array<Bool> {
-    var poss: =[true]
+    var poss: Array<Bool> =[true]
     for i in 2...Int(sqrt(Double(n))) {
         poss.append(true)
     }
