@@ -3,6 +3,7 @@ import UIKit
 let doFirst = false
 let doSecond = false
 let doThird = false
+let testEratos = false
 
 infix operator >> {
 associativity left precedence 140
@@ -96,20 +97,30 @@ if doSecond == true {
 
 //Euler3
 func Eratosthenes(n: Int) -> Array<Bool> {
-    var poss: Array<Bool> =[true]
-    for i in 2...Int(sqrt(Double(n))) {
-        poss.append(true)
-    }
-    for idx in poss {
-        if poss[idx] == true {
-            for m in 2...n {
-                if idx*idx + m*idx > n {
+    var poss: Array<Bool> = Array<Bool>(count: n, repeatedValue: true)
+    for (idx,val) in enumerate(poss) {
+        if idx + 2 > Int(sqrt(Double(n))) {
+            break
+        }
+        if  val == true {
+            for m in 0...n {
+                let num = idx + 2
+                if num*num + m*num - 2 >= poss.count {
                   break
                 }
-                poss[idx*idx + m*idx] = false
+                poss[num*num + m*num - 2] = false
            }
         }
     }
     return poss
 }
+
+if testEratos == true {
+    for (idx,val) in enumerate(Eratosthenes(5000)) {
+        if val == true {
+            let j = idx + 2
+        }
+    }
+}
+
 
